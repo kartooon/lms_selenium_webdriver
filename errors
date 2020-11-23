@@ -1,0 +1,2 @@
+Warning: mysqli_query(): (HY000/1194): Table 'lc_translations' is marked as crashed and should be repaired in ~/includes/library/lib_database.inc.php on line 172
+Fatal error: MySQL Error 1194: Table 'lc_translations' is marked as crashed and should be repaired select id, code, text_en, text_en from `litecart`.`lc_translations` where find_in_set('index.php', pages) in ~/includes/library/lib_database.inc.php on line 308
