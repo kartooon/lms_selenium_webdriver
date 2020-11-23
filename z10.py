@@ -60,3 +60,23 @@ def correct_prices_style(driver, list, value): #проверка стиля
     else:
         assert False
         print("Изъян")
+        
+        
+ def style_check(old_price_element,new_price_element):
+    #проверка старой цены
+    old_price_color = old_price_element.value_of_css_property("color")
+    old_price_color = get_rgba_array(old_price_color)
+    assert old_price_color[0] == old_price_color[0]
+    assert old_price_color[1] == old_price_color[2]
+
+    #проверка аукционной цены
+    new_price_color = new_price_element.value_of_css_property("color")
+    new_price_color = get_rgba_array(new_price_color)
+    assert new_price_color[0] > 0
+    assert new_price_color[1] == 0
+    assert new_price_color[2] == 0
+
+    # проверка размера
+    old_price_size = old_price_element.size
+    new_price_size = new_price_element.size
+    assert old_price_size['height'] < new_price_size['height']
