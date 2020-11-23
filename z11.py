@@ -12,6 +12,7 @@ def random_str(key, len):
 @pytest.fixture
 def driver(request):
     wd = webdriver.Chrome()
+    #wd = webdriver.Firefox()
     return wd
 
 def test_example(driver):
@@ -19,30 +20,31 @@ def test_example(driver):
         firstname = random_str("", 8),
         lastname = random_str("", 8),
         address1 = random_str("", 8),
-        postcode = "123456", #5 - US, 6 - RU
-        city = random_str("", 10),
-        email = random_str("", 10) + "@m.com",
+        postcode = "12345", #5 - US, 6 - RU
+        city = random_str("", 8),
+        email = random_str("", 8) + "@m.com",
         phone = "+19001234567",
         password = "qwerty123",
         confirmed_password = "qwerty123"
     )
 
     driver.get("http://localhost/litecart/en/")
-    wait = WebDriverWait(driver, 30)
     driver.find_element_by_css_selector("tr:last-of-type").click()
+    driver.implicitly_wait(20)
 
     for key, item in account_info.items():
         driver.find_element_by_name(key).send_keys(item)
 
-    #Select(driver.find_element_by_name("country_code")).select_by_value("US")
-    #Select(driver.find_element_by_css_selector("select[name = zone_code]")).select_by_value("NY")
-    Select(driver.find_element_by_name("country_code")).select_by_value("RU")
+    Select(driver.find_element_by_name("country_code")).select_by_value("US")
+    Select(driver.find_element_by_css_selector("select[name = zone_code]")).select_by_value("NY")
     driver.find_element_by_name("create_account").click()
 
     driver.find_element_by_css_selector("#box-account li:last-of-type a").click()
+    driver.implicitly_wait(20)
 
-    #проверка входа в аккаунт (RU)
-    #driver.find_element_by_name("email").send_keys(account_info["email"])
-    #driver.find_element_by_name("password").send_keys(account_info["password"])
-    #driver.find_element_by_name("login").click()
-    #driver.find_element_by_css_selector("[href$='/logout']").click()
+    #проверка входа в аккаунт
+    driver.find_element_by_name("email").send_keys(account_info["email"])
+    driver.find_element_by_name("password").send_keys(account_info["password"])
+    driver.find_element_by_name("login").click()
+    driver.find_element_by_css_selector("[href$='/logout']").click()
+    driver.back()
