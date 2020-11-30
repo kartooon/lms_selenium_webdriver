@@ -24,8 +24,8 @@ def test_example(driver):
     for i in ex_links:
         i.click()
         new_window = [i for i in driver.window_handles if i != main_window]
+        wait.until(expected_conditions.new_window_is_opened(new_window))
         for window in new_window:
-            WebDriverWait(driver, 600)
             driver.switch_to.window(window)
             driver.close()
         driver.switch_to.window(main_window)
